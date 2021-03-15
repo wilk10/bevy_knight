@@ -1,11 +1,9 @@
+// use std::ops::Deref;
+
+use crate::load::plugin::TextureAtlasEntity;
 use bevy::prelude::*;
 
 pub struct LevelPlugin;
-
-#[derive(Eq, PartialEq)]
-enum LevelEvents {
-    SpawnTrigger,
-} 
 
 impl Default for LevelPlugin {
     fn default() -> Self {
@@ -15,26 +13,29 @@ impl Default for LevelPlugin {
 
 impl Plugin for LevelPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app
-            .add_event::<LevelEvents>()
-            .add_system(check_remaining_level_size.system())
-            .add_system(spawn_trigger.system());
+        app.add_system_to_stage(CoreStage::PreUpdate, build_level.system());
     }
 }
 
-fn check_remaining_level_size(
-    mut events: ResMut<Events<LevelEvents>>,
+fn build_level(
+    mut commands: Commands,
+    texture_atlases: Res<Assets<TextureAtlas>>,
+    query: Query<&TextureAtlasEntity>,
 ) {
-    // TODO: check the condition upon which more level needs to be spawned (eg: distance between viewport and end of spawned level)
-    // if condition is met:
-    events.send(LevelEvents::SpawnTrigger);
-}
-
-fn spawn_trigger(
-    mut events_reader: Local<EventReader<LevelEvents>>,
-    events: Res<Events<LevelEvents>>,
-) {
-    if events_reader.latest(&events) == Some(&LevelEvents::SpawnTrigger) {
-        println!("puppete")
+    for texture_atlas_entity in query.iter() {
+        let texture_atlas = texture_atlases
+            .get(texture_atlas_entity.handle.clone())
+            .unwrap();
+        let sprite_index = texture_atlas.len() - 1;
+        commands.spawn(SpriteSheetBundle {
+            transform: Transform {
+                translation: Vec3::new(0.0, 0.0, 0.0),
+                scale: Vec3::splat(6.0),
+                ..Default::default()
+            },
+            sprite: TextureAtlasSprite::new(sprite_index as u32),
+            texture_atlas: texture_atlas_entity.handle.clone(),
+            ..Default::default()
+        });
     }
 }
