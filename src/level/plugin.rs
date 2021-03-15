@@ -1,15 +1,8 @@
-// use std::ops::Deref;
-
-use crate::load::plugin::TextureAtlasEntity;
 use bevy::prelude::*;
 
-pub struct LevelPlugin;
+use crate::load::plugin::TextureHandles;
 
-impl Default for LevelPlugin {
-    fn default() -> Self {
-        LevelPlugin
-    }
-}
+pub struct LevelPlugin;
 
 impl Plugin for LevelPlugin {
     fn build(&self, app: &mut AppBuilder) {
@@ -20,13 +13,12 @@ impl Plugin for LevelPlugin {
 fn build_level(
     mut commands: Commands,
     texture_atlases: Res<Assets<TextureAtlas>>,
-    query: Query<&TextureAtlasEntity>,
+    texture_handles: ResMut<TextureHandles>,
 ) {
-    for texture_atlas_entity in query.iter() {
-        let texture_atlas = texture_atlases
-            .get(texture_atlas_entity.handle.clone())
-            .unwrap();
-        let sprite_index = texture_atlas.len() - 1;
+    texture_handles.atlas.as_ref().map(|atlas_handle| {
+        let atlas = texture_atlases.get(atlas_handle.clone()).unwrap();
+        let sprite_index = atlas.len() - 1;
+
         commands.spawn(SpriteSheetBundle {
             transform: Transform {
                 translation: Vec3::new(0.0, 0.0, 0.0),
@@ -34,8 +26,8 @@ fn build_level(
                 ..Default::default()
             },
             sprite: TextureAtlasSprite::new(sprite_index as u32),
-            texture_atlas: texture_atlas_entity.handle.clone(),
+            texture_atlas: atlas_handle.clone(),
             ..Default::default()
         });
-    }
+    });
 }
