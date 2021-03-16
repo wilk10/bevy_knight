@@ -25,7 +25,7 @@ impl Plugin for LoadPlugin {
             .on_state_enter(
                 LoadAssetsStage,
                 LoadAssetsState::Finished,
-                spawn_atlas.system(),
+                generate_atlas.system(),
             );
     }
 }
@@ -87,7 +87,7 @@ fn check_textures(
     }
 }
 
-fn spawn_atlas(
+fn generate_atlas(
     mut texture_handles: ResMut<TextureHandles>,
     mut textures: ResMut<Assets<Texture>>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,

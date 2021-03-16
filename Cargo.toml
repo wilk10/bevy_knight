@@ -4,7 +4,6 @@ version = "0.1.0"
 authors = ["Anselmo Sampietro <ans.samp@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 bevy = { git = "https://github.com/bevyengine/bevy", rev = "c3a72e9dc85b53a1448138270c72e806fc91ec85" }
+bevy_tiled_prototype = { git = "https://github.com/StarArawn/bevy_tiled", rev = "71940c7bf065ae30ad7be35974fd801cccd0a771" } 
