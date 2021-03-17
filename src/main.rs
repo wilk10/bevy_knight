@@ -1,17 +1,16 @@
 use bevy::prelude::*;
 
+use bevy_knight::camera::plugin::CameraPlugin;
 use bevy_knight::level::plugin::LevelPlugin;
-use bevy_knight::load::plugin::LoadPlugin;
+use bevy_knight::load::plugin::LoadSpritesPlugin;
+use bevy_knight::player::plugin::PlayerPlugin;
 
 fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
-        .add_plugin(LoadPlugin)
+        .add_plugin(CameraPlugin)
+        .add_plugin(LoadSpritesPlugin)
         .add_plugin(LevelPlugin)
-        .add_startup_system(camera.system())
+        .add_plugin(PlayerPlugin)
         .run();
-}
-
-fn camera(mut commands: Commands) {
-    commands.spawn(OrthographicCameraBundle::new_2d());
 }
