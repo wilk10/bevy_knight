@@ -6,4 +6,4 @@ edition = "2018"
 
 [dependencies]
 bevy = { git = "https://github.com/bevyengine/bevy", rev = "c3a72e9dc85b53a1448138270c72e806fc91ec85" }
-bevy_tiled_prototype = { git = "https://github.com/StarArawn/bevy_tiled", rev = "71940c7bf065ae30ad7be35974fd801cccd0a771" } 
+tiled = "0.9.3"

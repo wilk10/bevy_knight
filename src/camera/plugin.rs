@@ -1,27 +1,29 @@
 use bevy::prelude::*;
 
-use crate::constants::{MAP_N_TILES_WIDTH, TILES_SIZE};
+use crate::constants::TILE_SIZE;
 
 pub struct CameraPlugin;
 
 impl Plugin for CameraPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(camera.system());
+        app.add_startup_system(spawn_camera.system());
     }
 }
 
 pub struct CameraMarker;
 
-fn camera(mut commands: Commands, windows: Res<Windows>) {
+fn spawn_camera(mut commands: Commands, windows: Res<Windows>) {
     let mut camera_bundle = OrthographicCameraBundle::new_2d();
-    let camera_pos = camera_bundle.transform.translation;
 
-    let new_camera_x = windows.get_primary().map_or(0.0, |window| {
+    if let Some(window) = windows.get_primary() {
         let camera_pos = camera_bundle.transform.translation;
-        let map_width = MAP_N_TILES_WIDTH * TILES_SIZE;
-        camera_pos.x - map_width / 2.0 + window.width() / 2.0
-    });
+        let new_x = camera_pos.x + window.width() / 2.0;
+        let new_y = camera_pos.y + TILE_SIZE / 2.0;
+        let new_camera_pos = Vec3::new(new_x, new_y, camera_pos.z);
+        camera_bundle.transform.translation = new_camera_pos;
+    } else {
+        return;
+    }
 
-    camera_bundle.transform.translation = Vec3::new(new_camera_x, camera_pos.y, camera_pos.z);
     commands.spawn(camera_bundle).with(CameraMarker);
 }

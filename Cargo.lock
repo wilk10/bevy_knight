@@ -471,7 +471,7 @@ name = "bevy_knight"
 version = "0.1.0"
 dependencies = [
  "bevy",
- "bevy_tiled_prototype",
+ "tiled",
 ]
 
 [[package]]
@@ -646,16 +646,6 @@ dependencies = [
  "bevy_window",
  "glyph_brush_layout",
  "thiserror",
-]
-
-[[package]]
-name = "bevy_tiled_prototype"
-version = "0.2.1"
-source = "git+https://github.com/StarArawn/bevy_tiled?rev=71940c7bf065ae30ad7be35974fd801cccd0a771#71940c7bf065ae30ad7be35974fd801cccd0a771"
-dependencies = [
- "anyhow",
- "bevy",
- "tiled",
 ]
 
 [[package]]
@@ -3290,8 +3280,9 @@ checksum = "7572415bd688d401c52f6e36f4c8e805b9ae1622619303b9fa835d531db0acae"
 
 [[package]]
 name = "tiled"
-version = "0.9.3"
-source = "git+https://github.com/mattyhall/rs-tiled?branch=master#a720d46f6788a45b33cd552e84c7c1e3bf8ae9ab"
+version = "0.9.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8d2c30aeea9d8159cb461a17dba23ad28980a2a9c217a6784a14e931e4979d6f"
 dependencies = [
  "base64 0.10.1",
  "libflate 0.1.27",
