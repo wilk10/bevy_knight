@@ -27,14 +27,16 @@ fn spawn_tiled_map(
     let tiles_atlas = TextureAtlas::from_grid(tile_sheet_handle, Vec2::new(32.0, 32.0), 3, 7);
     let tiles_atlas_handle = texture_atlases.add(tiles_atlas);
 
-    let map = parse_file(&Path::new("assets/map/map.tmx")).unwrap();
+    let map_path = "assets/map/map.tmx";
+    let map = parse_file(&Path::new(map_path))
+        .unwrap_or_else(|error| panic!("{:?} || could not parse the map at {:?}", error, map_path));
 
     for layer in map.layers.iter() {
         for i in 0..map.width {
             for j in 0..map.height {
                 let tile = match &layer.tiles {
                     tiled::LayerData::Finite(tiles) => &tiles[j as usize][i as usize],
-                    _ => panic!("Infinte maps not supported"),
+                    _ => panic!("infinte maps not supported"),
                 };
 
                 if tile.gid == 0 {

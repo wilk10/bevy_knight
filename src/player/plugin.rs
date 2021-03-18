@@ -18,7 +18,13 @@ fn spawn_player(
     texture_atlases: Res<Assets<TextureAtlas>>,
 ) {
     if let Some(knight_atlas_handle) = sprites.get("knight") {
-        let knight_atlas = texture_atlases.get(knight_atlas_handle).unwrap();
+        let knight_atlas = texture_atlases.get(knight_atlas_handle).unwrap_or_else(|| {
+            panic!(
+                "did not find knight_atlas_handle: {:?}",
+                knight_atlas_handle
+            )
+        });
+
         let sprite_index = 1 % knight_atlas.textures.len();
         commands
             .spawn(SpriteSheetBundle {
