@@ -5,5 +5,6 @@ authors = ["Anselmo Sampietro <ans.samp@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-bevy = { git = "https://github.com/bevyengine/bevy", rev = "c3a72e9dc85b53a1448138270c72e806fc91ec85" }
+bevy = { git = "https://github.com/bevyengine/bevy", rev = "cd4c684ad5563c99b01e4ee6eea7c9b560c5dd5a" }
+glam = "0.13.0"
 tiled = "0.9.3"

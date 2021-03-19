@@ -1,13 +1,16 @@
 use bevy::prelude::*;
 
-use crate::load::sprites::Sprites;
+use crate::load::resources::sprites::Sprites;
+
+#[derive(Clone, Debug, Eq, Hash, PartialEq, SystemLabel)]
+pub struct LoadLabel;
 
 pub struct LoadSpritesPlugin;
 
 impl Plugin for LoadSpritesPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<Sprites>()
-            .add_startup_system(load_sprites.system());
+            .add_startup_system(load_sprites.system().label(LoadLabel));
     }
 }
 

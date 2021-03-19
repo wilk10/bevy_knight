@@ -3,19 +3,15 @@ use tiled::parse_file;
 
 use std::path::Path;
 
-use crate::constants::{MAP_N_TILES_HEIGHT, SCALE, TILE_SIZE};
+use crate::constants::Const;
+use crate::level::components::tile::Tile;
 
 pub struct LevelPlugin;
 
 impl Plugin for LevelPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system_to_stage(CoreStage::PreUpdate, spawn_tiled_map.system());
+        app.add_startup_system(spawn_tiled_map.system());
     }
-}
-
-#[allow(dead_code)]
-pub struct Tile {
-    size: Vec2,
 }
 
 fn spawn_tiled_map(
@@ -43,15 +39,16 @@ fn spawn_tiled_map(
                     continue;
                 }
 
-                let window_height = MAP_N_TILES_HEIGHT * TILE_SIZE;
-                let tile_x = (TILE_SIZE * i as f32) * SCALE;
-                let tile_y = (window_height / 2.0 - TILE_SIZE * j as f32) * SCALE;
+                let window_height = Const::map_n_tiles().y * Const::tile_size().y;
+                let tile_x = (Const::tile_size().x * i as f32) * Const::global_scale();
+                let tile_y =
+                    (window_height / 2.0 - Const::tile_size().y * j as f32) * Const::global_scale();
 
                 commands
                     .spawn(SpriteSheetBundle {
                         transform: Transform {
                             translation: Vec3::new(tile_x, tile_y, 10.0),
-                            scale: Vec3::splat(SCALE),
+                            scale: Vec3::splat(Const::global_scale()),
                             ..Default::default()
                         },
 
@@ -59,9 +56,7 @@ fn spawn_tiled_map(
                         texture_atlas: tiles_atlas_handle.clone(),
                         ..Default::default()
                     })
-                    .with(Tile {
-                        size: Vec2::new(TILE_SIZE * SCALE, TILE_SIZE * SCALE),
-                    });
+                    .with(Tile::default());
             }
         }
     }
