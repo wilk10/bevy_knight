@@ -1,9 +1,15 @@
-use bevy::prelude::*;
-use bevy::sprite::collide_aabb::Collision;
+use bevy::{
+    prelude::*,
+    sprite::collide_aabb::Collision,
+};
 
-use crate::constants::Const;
-use crate::knight::components::knight::Knight;
-use crate::knight::events::CollisionEvent;
+use crate::{
+    constants::Const,
+    knight::{
+        components::knight::Knight,
+        events::CollisionEvent,
+    },
+};
 
 pub fn handle_movement(
     time: Res<Time>,

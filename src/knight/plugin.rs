@@ -1,10 +1,16 @@
 use bevy::prelude::*;
 
-use crate::knight::events::CollisionEvent;
-use crate::knight::systems::collision::detect_collision;
-use crate::knight::systems::input::handle_movement;
-use crate::knight::systems::spawn::spawn_knight;
-use crate::load::plugin::LoadLabel;
+use crate::{
+    knight::{
+        events::CollisionEvent,
+        systems::{
+            collision::detect_collision,
+            input::handle_movement,
+            spawn::spawn_knight,
+        },
+    },
+    load::plugin::LoadLabel,
+};
 
 pub struct JustMoved;
 

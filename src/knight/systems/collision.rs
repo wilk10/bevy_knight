@@ -1,9 +1,15 @@
-use bevy::prelude::*;
-use bevy::sprite::collide_aabb::collide;
+use bevy::{
+    prelude::*,
+    sprite::collide_aabb::collide,
+};
 
-use crate::knight::components::knight::Knight;
-use crate::knight::events::CollisionEvent;
-use crate::level::components::tile::Tile;
+use crate::{
+    knight::{
+        components::knight::Knight,
+        events::CollisionEvent,
+    },
+    level::components::tile::Tile,
+};
 
 pub fn detect_collision(
     mut events: EventWriter<CollisionEvent>,

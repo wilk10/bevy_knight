@@ -3,8 +3,10 @@ use tiled::parse_file;
 
 use std::path::Path;
 
-use crate::constants::Const;
-use crate::level::components::tile::Tile;
+use crate::{
+    constants::Const,
+    level::components::tile::Tile,
+};
 
 pub struct LevelPlugin;
 
@@ -22,7 +24,6 @@ fn spawn_tiled_map(
     let tile_sheet_handle = asset_server.load("map/tilesheet.png");
     let tiles_atlas = TextureAtlas::from_grid(tile_sheet_handle, Vec2::new(32.0, 32.0), 3, 7);
     let tiles_atlas_handle = texture_atlases.add(tiles_atlas);
-
     let map_path = "assets/map/map.tmx";
     let map = parse_file(&Path::new(map_path))
         .unwrap_or_else(|error| panic!("{:?} || could not parse the map at {:?}", error, map_path));
@@ -51,7 +52,6 @@ fn spawn_tiled_map(
                             scale: Vec3::splat(Const::global_scale()),
                             ..Default::default()
                         },
-
                         sprite: TextureAtlasSprite::new(tile.gid - 1),
                         texture_atlas: tiles_atlas_handle.clone(),
                         ..Default::default()

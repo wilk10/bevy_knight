@@ -1,7 +1,9 @@
 use bevy::prelude::*;
 
-use crate::knight::components::knight::Knight;
-use crate::load::resources::sprites::Sprites;
+use crate::{
+    knight::components::knight::Knight,
+    load::resources::sprites::Sprites,
+};
 
 pub fn spawn_knight(
     mut commands: Commands,
@@ -17,8 +19,8 @@ pub fn spawn_knight(
                 knight_atlas_handle
             )
         });
-
         let sprite_index = 1 % knight_atlas.textures.len();
+
         commands
             .spawn(SpriteSheetBundle {
                 transform: Transform {
