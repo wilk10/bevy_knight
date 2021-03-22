@@ -1,5 +1,5 @@
 [package]
-name = "bevy_knight"
+name = "knight"
 version = "0.1.0"
 authors = ["Anselmo Sampietro <ans.samp@gmail.com>"]
 edition = "2018"
