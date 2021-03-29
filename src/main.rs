@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use bevy_knight::{
+use knight::{
     camera::plugin::CameraPlugin,
     knight::plugin::KnightPlugin,
     level::plugin::LevelPlugin,

@@ -24,5 +24,5 @@ fn spawn_camera(mut commands: Commands, windows: Res<Windows>) {
     let new_camera_pos = Vec3::new(new_x, new_y, camera_pos.z);
     camera_bundle.transform.translation = new_camera_pos;
 
-    commands.spawn(camera_bundle).with(CameraMarker);
+    commands.spawn_bundle(camera_bundle).insert(CameraMarker);
 }

@@ -22,7 +22,7 @@ pub fn spawn_knight(
         let sprite_index = 1 % knight_atlas.textures.len();
 
         commands
-            .spawn(SpriteSheetBundle {
+            .spawn_bundle(SpriteSheetBundle {
                 transform: Transform {
                     translation: knight.initial_position,
                     scale: knight.scale,
@@ -32,6 +32,6 @@ pub fn spawn_knight(
                 texture_atlas: knight_atlas_handle.clone(),
                 ..Default::default()
             })
-            .with(knight);
+            .insert(knight);
     }
 }

@@ -46,7 +46,7 @@ fn spawn_tiled_map(
                     (window_height / 2.0 - Const::tile_size().y * j as f32) * Const::global_scale();
 
                 commands
-                    .spawn(SpriteSheetBundle {
+                    .spawn_bundle(SpriteSheetBundle {
                         transform: Transform {
                             translation: Vec3::new(tile_x, tile_y, 10.0),
                             scale: Vec3::splat(Const::global_scale()),
@@ -56,7 +56,7 @@ fn spawn_tiled_map(
                         texture_atlas: tiles_atlas_handle.clone(),
                         ..Default::default()
                     })
-                    .with(Tile::default());
+                    .insert(Tile::default());
             }
         }
     }
